@@ -87,7 +87,8 @@ def main():
         repo = Repo("./")
         repo.git.add("--all")
         repo.git.commit("-m", "Automated data push")
-        repo.remotes.origin.push("main")
+        repo_url = "https://github.com/madhavmadupu/TaskNetTracker.git"
+        subprocess.run(['git', 'push', '--porcelain', '--', repo_url, 'main'])
         st.success("Task saved successfully!")
 
 
