@@ -28,24 +28,38 @@ def main():
     data = load_data(data_file_path)
 
     # Task input form
-    st.subheader("Enter Task Information")
-    task = st.text_input("Task")
-    task_description = st.text_input("Task Description")
-    task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
-    importance = st.slider("Importance (1-10)", 1, 10)
-    interest = st.slider("Interest (1-10)", 1, 10)
-    task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
-    preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
-    day_of_week = st.slider("Day of Week (1-7)", 1, 7)
-    month = st.slider("Month (1-12)", 1, 12)
-    year = datetime.now().year  # Automatically set to the current year
-    time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
-    weekday_weekend = st.radio("Weekday or Weekend", ["Weekday", "Weekend"])
-    is_holiday = st.checkbox("Is Holiday?")
-    weather_conditions = st.text_input("Weather Conditions")
-    energy_level = st.slider("Energy Level (1-10)", 1, 10)
-    mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
-    location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
+    col1, col2 = st.beta_columns(2)
+
+    with col1:
+        task = st.text_input("Task")
+        task_description = st.text_input("Task Description")
+        task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
+        importance = st.slider("Importance", 1, 10)
+        interest = st.slider("Interest", 1, 10)
+
+    with col2:
+        task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
+        preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
+        day_of_week = st.slider("Day of Week", 1, 7)
+        month = st.slider("Month", 1, 12)
+
+    st.text("")  # Add some space
+    st.subheader("Optional Details")
+
+    col3, col4, col5 = st.beta_columns(3)
+
+    with col3:
+        time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
+        weekday_weekend = st.radio("Weekday/Weekend", ["Weekday", "Weekend"])
+        is_holiday = st.checkbox("Is Holiday?")
+
+    with col4:
+        weather_conditions = st.text_input("Weather Conditions")
+        energy_level = st.slider("Energy Level", 1, 10)
+
+    with col5:
+        mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
+        location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
 
     # Save data on button click
     if st.button("Save Task"):
@@ -53,7 +67,7 @@ def main():
             "task": task, "task_description": task_description, "task_duration": task_duration,
             "importance": importance, "interest": interest, "type": task_type,
             "preferred_shift": preferred_shift, "day_of_week": day_of_week,
-            "month": month, "year": year, "time_of_day": time_of_day,
+            "month": month, "year": datetime.now().year, "time_of_day": time_of_day,
             "weekday_weekend": weekday_weekend, "is_holiday": is_holiday,
             "weather_conditions": weather_conditions, "energy_level": energy_level,
             "mood": mood, "location": location
