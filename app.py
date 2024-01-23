@@ -39,7 +39,6 @@ def main():
 
     with col1:
         task = st.text_input("Task")
-        task_description = st.text_input("Task Description")
         task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
         importance = st.slider("Importance", 1, 10)
         interest = st.slider("Interest", 1, 10)
@@ -65,7 +64,7 @@ def main():
         data = data.append(new_row, ignore_index=True)
         save_data(data, data_file_path)
         st.success("Task saved successfully!")
-        
+
     st.text("")  # Add some space
     st.subheader("Optional Details")
 
@@ -77,6 +76,7 @@ def main():
         is_holiday = st.checkbox("Is Holiday?")
 
     with col4:
+        task_description = st.text_input("Task Description")
         weather_conditions = st.text_input("Weather Conditions")
         energy_level = st.slider("Energy Level", 1, 10)
 
