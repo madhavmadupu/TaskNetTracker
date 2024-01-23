@@ -97,7 +97,6 @@ def main():
     st.dataframe(df)
 
 if __name__ == "__main__":
-    subprocess.run(['sudo', 'apt', 'install', 'git'], check=True)
     subprocess.run(['git', 'config', '--global', 'user.name', 'madhavmadupu'])
     subprocess.run(['git', 'config', '--global', 'user.email', 'madhav.madupu@gmail.com'])
     main()
