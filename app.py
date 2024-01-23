@@ -28,7 +28,7 @@ def main():
     data = load_data(data_file_path)
 
     # Task input form
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
 
     with col1:
         task = st.text_input("Task")
@@ -46,7 +46,7 @@ def main():
     st.text("")  # Add some space
     st.subheader("Optional Details")
 
-    col3, col4, col5 = st.beta_columns(3)
+    col3, col4, col5 = st.columns(3)
 
     with col3:
         time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
