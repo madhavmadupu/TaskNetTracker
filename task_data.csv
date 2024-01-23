@@ -1,0 +1,3 @@
+task,task_description,task_duration,importance,interest,type,preferred_shift,day_of_week,month,year,time_of_day,weekday_weekend,is_holiday,weather_conditions,energy_level,mood,location
+efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,False,,1,Happy,Home
+efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,True,,1,Happy,Home

@@ -6,19 +6,19 @@ import pytz
 # Function to load existing data or create a new DataFrame
 def load_data(file_path):
     try:
-        data = pd.read_csv(file_path)
+        df = pd.read_csv(file_path)
     except FileNotFoundError:
-        data = pd.DataFrame(columns=[
+        df = pd.DataFrame(columns=[
             "task", "task_description", "task_duration", "importance", "interest",
             "type", "preferred_shift", "day_of_week", "month", "year",
             "time_of_day", "weekday_weekend", "is_holiday", "weather_conditions",
             "energy_level", "mood", "location"
         ])
-    return data
+    return df
 
 # Function to save data to CSV
-def save_data(data, file_path):
-    data.to_csv(file_path, index=False)
+def save_data(df, file_path):
+    df.to_csv(file_path, index=False)
 
 # Function to get Indian date and time
 def get_indian_datetime():
@@ -32,7 +32,7 @@ def main():
 
     # Load existing data or create a new DataFrame
     data_file_path = "task_data.csv"
-    data = load_data(data_file_path)
+    df = load_data(data_file_path)
 
     # Task input form
     col1, col2 = st.columns(2)
@@ -80,13 +80,13 @@ def main():
             "energy_level": energy_level, "mood": mood, "location": location
         }
 
-        data = data.append(new_row, ignore_index=True)
-        save_data(data, data_file_path)
+        df = pd.concat([df, pd.DataFrame(new_row, index=[0])], ignore_index=True, sort=False)
+        save_data(df, data_file_path)
         st.success("Task saved successfully!")
 
     # Display the current data
     st.subheader("Current Data")
-    st.dataframe(data)
+    st.dataframe(df)
 
 if __name__ == "__main__":
     main()
