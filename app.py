@@ -8,7 +8,7 @@ except FileNotFoundError:
     df = pd.DataFrame(columns=['Text'])
 
 # Streamlit app layout
-st.title('Text Data Appender')
+st.title('Task Tracker')
 input_text = st.text_input('Enter text:')
 if st.button('Submit'):
     df = pd.concat([df, pd.DataFrame({'Text': [input_text]})], ignore_index=True)
