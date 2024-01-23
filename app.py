@@ -41,11 +41,12 @@ def main():
         task = st.text_input("Task")
         task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
         importance = st.slider("Importance", 1, 10)
-        interest = st.slider("Interest", 1, 10)
 
     with col2:
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
         preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
+        interest = st.slider("Interest", 1, 10)
+
 
     # Save data on button click
     if st.button("Save Task"):
