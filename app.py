@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import pytz
 
 # Function to load existing data or create a new DataFrame
 def load_data(file_path):
@@ -18,6 +19,12 @@ def load_data(file_path):
 # Function to save data to CSV
 def save_data(data, file_path):
     data.to_csv(file_path, index=False)
+
+# Function to get Indian date and time
+def get_indian_datetime():
+    tz = pytz.timezone('Asia/Kolkata')  # Indian Standard Time (IST)
+    indian_datetime = datetime.now(tz)
+    return indian_datetime
 
 # Main Streamlit app
 def main():
@@ -40,8 +47,6 @@ def main():
     with col2:
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
         preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
-        day_of_week = st.slider("Day of Week", 1, 7)
-        month = st.slider("Month", 1, 12)
 
     st.text("")  # Add some space
     st.subheader("Optional Details")
@@ -63,14 +68,16 @@ def main():
 
     # Save data on button click
     if st.button("Save Task"):
+        indian_datetime = get_indian_datetime()
+
         new_row = {
             "task": task, "task_description": task_description, "task_duration": task_duration,
             "importance": importance, "interest": interest, "type": task_type,
-            "preferred_shift": preferred_shift, "day_of_week": day_of_week,
-            "month": month, "year": datetime.now().year, "time_of_day": time_of_day,
-            "weekday_weekend": weekday_weekend, "is_holiday": is_holiday,
-            "weather_conditions": weather_conditions, "energy_level": energy_level,
-            "mood": mood, "location": location
+            "preferred_shift": preferred_shift, "day_of_week": indian_datetime.weekday() + 1,
+            "month": indian_datetime.month, "year": indian_datetime.year,
+            "time_of_day": time_of_day, "weekday_weekend": weekday_weekend,
+            "is_holiday": is_holiday, "weather_conditions": weather_conditions,
+            "energy_level": energy_level, "mood": mood, "location": location
         }
 
         data = data.append(new_row, ignore_index=True)
