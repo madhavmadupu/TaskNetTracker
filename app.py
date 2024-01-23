@@ -1,18 +1,71 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 
-# Load existing data.csv or create an empty DataFrame
-try:
-    df = pd.read_csv('data.csv')
-except FileNotFoundError:
-    df = pd.DataFrame(columns=['Text'])
+# Function to load existing data or create a new DataFrame
+def load_data(file_path):
+    try:
+        data = pd.read_csv(file_path)
+    except FileNotFoundError:
+        data = pd.DataFrame(columns=[
+            "task", "task_description", "task_duration", "importance", "interest",
+            "type", "preferred_shift", "day_of_week", "month", "year",
+            "time_of_day", "weekday_weekend", "is_holiday", "weather_conditions",
+            "energy_level", "mood", "location"
+        ])
+    return data
 
-# Streamlit app layout
-st.title('Taskk Tracker')
-input_text = st.text_input('Enter text:')
-if st.button('Submit'):
-    df = pd.concat([df, pd.DataFrame({'Text': [input_text]})], ignore_index=True)
-    df.to_csv('data.csv', index=False)
-    st.success('Text successfully appended to data.csv!')
+# Function to save data to CSV
+def save_data(data, file_path):
+    data.to_csv(file_path, index=False)
 
-st.dataframe(df)
+# Main Streamlit app
+def main():
+    st.title("Task Recommendation Data Entry")
+
+    # Load existing data or create a new DataFrame
+    data_file_path = "task_data.csv"
+    data = load_data(data_file_path)
+
+    # Task input form
+    st.subheader("Enter Task Information")
+    task = st.text_input("Task")
+    task_description = st.text_input("Task Description")
+    task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
+    importance = st.slider("Importance (1-10)", 1, 10)
+    interest = st.slider("Interest (1-10)", 1, 10)
+    task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
+    preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
+    day_of_week = st.slider("Day of Week (1-7)", 1, 7)
+    month = st.slider("Month (1-12)", 1, 12)
+    year = datetime.now().year  # Automatically set to the current year
+    time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
+    weekday_weekend = st.radio("Weekday or Weekend", ["Weekday", "Weekend"])
+    is_holiday = st.checkbox("Is Holiday?")
+    weather_conditions = st.text_input("Weather Conditions")
+    energy_level = st.slider("Energy Level (1-10)", 1, 10)
+    mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
+    location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
+
+    # Save data on button click
+    if st.button("Save Task"):
+        new_row = {
+            "task": task, "task_description": task_description, "task_duration": task_duration,
+            "importance": importance, "interest": interest, "type": task_type,
+            "preferred_shift": preferred_shift, "day_of_week": day_of_week,
+            "month": month, "year": year, "time_of_day": time_of_day,
+            "weekday_weekend": weekday_weekend, "is_holiday": is_holiday,
+            "weather_conditions": weather_conditions, "energy_level": energy_level,
+            "mood": mood, "location": location
+        }
+
+        data = data.append(new_row, ignore_index=True)
+        save_data(data, data_file_path)
+        st.success("Task saved successfully!")
+
+    # Display the current data
+    st.subheader("Current Data")
+    st.dataframe(data)
+
+if __name__ == "__main__":
+    main()
