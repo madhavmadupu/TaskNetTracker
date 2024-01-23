@@ -50,7 +50,7 @@ def main():
     st.text("")  # Add some space
 
     # Save data on button click
-    if st.button("Save Task"):
+    if st.button("Save Task", key="save_task_button"):
         indian_datetime = get_indian_datetime()
 
         new_row = {
@@ -81,7 +81,7 @@ def main():
         energy_level = st.slider("Energy Level", 1, 10)
 
     # Save data on button click
-    if st.button("Save Task"):
+    if st.button("Save Optional Parameters", key="save_optional_button"):
         # Update the existing row with optional parameters
         data.loc[data.index.max(), "task_description"] = st.text_input("Task Description")
         data.loc[data.index.max(), "time_of_day"] = time_of_day
@@ -91,7 +91,7 @@ def main():
         data.loc[data.index.max(), "energy_level"] = energy_level
 
         # Display success message
-        st.success("Task saved successfully!")
+        st.success("Optional parameters saved successfully!")
 
         # Save the updated data
         save_data(data, data_file_path)
