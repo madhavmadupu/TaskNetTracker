@@ -48,6 +48,24 @@ def main():
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
         preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
 
+    # Save data on button click
+    if st.button("Save Task"):
+        indian_datetime = get_indian_datetime()
+
+        new_row = {
+            "task": task, "task_description": task_description, "task_duration": task_duration,
+            "importance": importance, "interest": interest, "type": task_type,
+            "preferred_shift": preferred_shift, "day_of_week": indian_datetime.weekday() + 1,
+            "month": indian_datetime.month, "year": indian_datetime.year,
+            "time_of_day": time_of_day, "weekday_weekend": weekday_weekend,
+            "is_holiday": is_holiday, "weather_conditions": weather_conditions,
+            "energy_level": energy_level, "mood": mood, "location": location
+        }
+
+        data = data.append(new_row, ignore_index=True)
+        save_data(data, data_file_path)
+        st.success("Task saved successfully!")
+        
     st.text("")  # Add some space
     st.subheader("Optional Details")
 
@@ -66,23 +84,6 @@ def main():
         mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
         location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
 
-    # Save data on button click
-    if st.button("Save Task"):
-        indian_datetime = get_indian_datetime()
-
-        new_row = {
-            "task": task, "task_description": task_description, "task_duration": task_duration,
-            "importance": importance, "interest": interest, "type": task_type,
-            "preferred_shift": preferred_shift, "day_of_week": indian_datetime.weekday() + 1,
-            "month": indian_datetime.month, "year": indian_datetime.year,
-            "time_of_day": time_of_day, "weekday_weekend": weekday_weekend,
-            "is_holiday": is_holiday, "weather_conditions": weather_conditions,
-            "energy_level": energy_level, "mood": mood, "location": location
-        }
-
-        data = data.append(new_row, ignore_index=True)
-        save_data(data, data_file_path)
-        st.success("Task saved successfully!")
 
     # Display the current data
     st.subheader("Current Data")
