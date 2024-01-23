@@ -3,6 +3,7 @@ import pandas as pd
 from git import Repo
 from datetime import datetime
 import pytz
+import subprocess
 
 # Function to load existing data or create a new DataFrame
 def load_data(file_path):
@@ -95,4 +96,6 @@ def main():
     st.dataframe(df)
 
 if __name__ == "__main__":
+    subprocess.run(['git', 'config', '--global', 'user.name', 'madhavmadupu'])
+    subprocess.run(['git', 'config', '--global', 'user.email', 'madhav.madupu@gmail.com'])
     main()
