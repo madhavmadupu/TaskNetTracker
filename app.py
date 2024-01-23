@@ -86,7 +86,7 @@ def main():
         repo = Repo("./")
         repo.git.add("--all")
         repo.git.commit("-m", "Automated data push")
-        repo.remotes.origin.push("main", auth=("token", "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"))
+        repo.remotes.origin.push("main")
         st.success("Task saved successfully!")
 
 

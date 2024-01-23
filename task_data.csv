@@ -2,3 +2,4 @@ task,task_description,task_duration,importance,interest,type,preferred_shift,day
 efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,False,,1,Happy,Home
 efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,True,,1,Happy,Home
 ,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,False,,1,Happy,Home
+,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,False,,1,Happy,Home
