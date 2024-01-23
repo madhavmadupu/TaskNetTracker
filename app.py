@@ -41,50 +41,60 @@ def main():
         task = st.text_input("Task")
         task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
         importance = st.slider("Importance", 1, 10)
+        interest = st.slider("Interest", 1, 10)
 
     with col2:
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
         preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
-        interest = st.slider("Interest", 1, 10)
 
+    st.text("")  # Add some space
 
     # Save data on button click
     if st.button("Save Task"):
         indian_datetime = get_indian_datetime()
 
         new_row = {
-            "task": task, "task_description": task_description, "task_duration": task_duration,
-            "importance": importance, "interest": interest, "type": task_type,
-            "preferred_shift": preferred_shift, "day_of_week": indian_datetime.weekday() + 1,
+            "task": task, "task_description": "",  # Default to empty string
+            "task_duration": task_duration, "importance": importance,
+            "interest": interest, "type": task_type, "preferred_shift": preferred_shift,
+            "day_of_week": indian_datetime.weekday() + 1,
             "month": indian_datetime.month, "year": indian_datetime.year,
-            "time_of_day": time_of_day, "weekday_weekend": weekday_weekend,
-            "is_holiday": is_holiday, "weather_conditions": weather_conditions,
-            "energy_level": energy_level, "mood": mood, "location": location
+            "time_of_day": "", "weekday_weekend": "", "is_holiday": "",
+            "weather_conditions": "", "energy_level": "", "mood": "", "location": ""
         }
 
         data = data.append(new_row, ignore_index=True)
-        save_data(data, data_file_path)
-        st.success("Task saved successfully!")
 
-    st.text("")  # Add some space
-    st.subheader("Optional Details")
-
+    # Optional parameters
+    st.subheader("Optional Parameters")
     col3, col4, col5 = st.columns(3)
 
     with col3:
         time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
+
+    with col4:
         weekday_weekend = st.radio("Weekday/Weekend", ["Weekday", "Weekend"])
         is_holiday = st.checkbox("Is Holiday?")
 
-    with col4:
-        task_description = st.text_input("Task Description")
+    with col5:
         weather_conditions = st.text_input("Weather Conditions")
         energy_level = st.slider("Energy Level", 1, 10)
 
-    with col5:
-        mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
-        location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
+    # Save data on button click
+    if st.button("Save Task"):
+        # Update the existing row with optional parameters
+        data.loc[data.index.max(), "task_description"] = st.text_input("Task Description")
+        data.loc[data.index.max(), "time_of_day"] = time_of_day
+        data.loc[data.index.max(), "weekday_weekend"] = weekday_weekend
+        data.loc[data.index.max(), "is_holiday"] = is_holiday
+        data.loc[data.index.max(), "weather_conditions"] = weather_conditions
+        data.loc[data.index.max(), "energy_level"] = energy_level
 
+        # Display success message
+        st.success("Task saved successfully!")
+
+        # Save the updated data
+        save_data(data, data_file_path)
 
     # Display the current data
     st.subheader("Current Data")
