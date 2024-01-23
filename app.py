@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from git import Repo
 from datetime import datetime
 import pytz
 
@@ -82,7 +83,12 @@ def main():
 
         df = pd.concat([df, pd.DataFrame(new_row, index=[0])], ignore_index=True, sort=False)
         save_data(df, data_file_path)
+        repo = Repo("./")
+        repo.git.add("--all")
+        repo.git.commit("-m", "Automated data push")
+        repo.remotes.origin.push("main", auth=("token", "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"))
         st.success("Task saved successfully!")
+
 
     # Display the current data
     st.subheader("Current Data")
