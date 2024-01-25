@@ -97,6 +97,7 @@ def main():
     st.dataframe(df)
 
 if __name__ == "__main__":
+    st.set_page_config(page_title="TskNet", page_icon="📅")
     subprocess.run(['git', 'config', '--global', 'user.name', 'madhavmadupu'])
     subprocess.run(['git', 'config', '--global', 'user.email', 'madhav.madupu@gmail.com'])
     main()

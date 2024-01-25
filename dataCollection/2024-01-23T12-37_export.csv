@@ -1,0 +1,10 @@
+﻿,task,task_description,task_duration,importance,interest,type,preferred_shift,day_of_week,month,year,time_of_day,weekday_weekend,is_holiday,weather_conditions,energy_level,mood,location
+0,efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+1,efacd,qefad,0.1,7,4,Work,Morning,2,1,2024,Morning,Weekday,true,,1,Happy,Home
+2,,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+3,,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+4,,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+5,from localhost,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+6,,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+7,1,,0.1,1,1,Work,Morning,2,1,2024,Morning,Weekday,false,,1,Happy,Home
+8,Coding,Modifying the ace rpa team blog website,0.9999999999999999,8,9,Work,Evening,2,1,2024,Evening,Weekday,true,Clear,6,Neutral,Home
