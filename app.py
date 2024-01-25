@@ -33,7 +33,7 @@ def main():
     st.title("Task Recommendation Data Entry")
 
     # Load existing data or create a new DataFrame
-    data_file_path = "task_data.csv"
+    data_file_path = "TaskNetTracker\\task_data.csv"
     df = load_data(data_file_path)
 
     # Task input form
@@ -82,7 +82,7 @@ def main():
 
         df = pd.concat([df, pd.DataFrame(new_row, index=[0])], ignore_index=True, sort=False)
         save_data(df, data_file_path)
-        repo = Repo("./")
+        repo = Repo("TaskNetTracker")
         repo.git.add("--all")
         repo.git.commit("-m", "Automated data push")
         repo_url = "https://github.com/madhavmadupu/TaskNetTracker.git"
@@ -94,8 +94,6 @@ def main():
     st.subheader("Current Data")
     st.dataframe(df)
 
-if __name__ == "__main__":
-    st.set_page_config(page_title="TskNet", page_icon="📅")
-    subprocess.run(['git', 'config', '--global', 'user.name', 'madhavmadupu'])
-    subprocess.run(['git', 'config', '--global', 'user.email', 'madhav.madupu@gmail.com'])
+if __name__=="__main__":
+    st.set_page_config(page_title="TaskNet", page_icon="📅")
     main()
