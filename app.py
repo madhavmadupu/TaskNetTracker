@@ -43,12 +43,13 @@ def main():
         task = st.text_input("Task")
         task_description = st.text_input("Task Description")
         task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
-        importance = st.slider("Importance", 1, 10)
-        interest = st.slider("Interest", 1, 10)
+        importance = st.slider("Importance", min_value=1, max_value=10, value=5)
 
     with col2:
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
         preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
+        weather_conditions = st.text_input("Weather Conditions")
+        interest = st.slider("Interest", min_value=1, max_value=10, value=5)
 
     st.text("")  # Add some space
     st.subheader("Optional Details")
@@ -56,17 +57,15 @@ def main():
     col3, col4, col5 = st.columns(3)
 
     with col3:
-        time_of_day = st.selectbox("Time of Day", ["Morning", "Afternoon", "Evening"])
         weekday_weekend = st.radio("Weekday/Weekend", ["Weekday", "Weekend"])
         is_holiday = st.checkbox("Is Holiday?")
 
     with col4:
-        weather_conditions = st.text_input("Weather Conditions")
-        energy_level = st.slider("Energy Level", 1, 10)
+        energy_level = st.slider("Energy Level", min_value=1, max_value=10, value=5)
 
     with col5:
-        mood = st.selectbox("Mood", ["Happy", "Neutral", "Stressed", "Relaxed"])
-        location = st.selectbox("Location", ["Home", "Office", "Outdoors", "Other"])
+        mood = st.selectbox("Mood", ["Neutral", "Happy", "Stressed", "Relaxed"])
+        location = st.selectbox("Location", ["Home", "College", "Outdoors", "Other"])
 
     # Save data on button click
     if st.button("Save Task"):
@@ -76,8 +75,7 @@ def main():
             "task": task, "task_description": task_description, "task_duration": task_duration,
             "importance": importance, "interest": interest, "type": task_type,
             "preferred_shift": preferred_shift, "day_of_week": indian_datetime.weekday() + 1,
-            "month": indian_datetime.month, "year": indian_datetime.year,
-            "time_of_day": time_of_day, "weekday_weekend": weekday_weekend,
+            "month": indian_datetime.month, "year": indian_datetime.year,"weekday_weekend": weekday_weekend,
             "is_holiday": is_holiday, "weather_conditions": weather_conditions,
             "energy_level": energy_level, "mood": mood, "location": location
         }
