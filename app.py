@@ -33,7 +33,7 @@ def main():
     st.title("Task Recommendation Data Entry")
 
     # Load existing data or create a new DataFrame
-    data_file_path = "TaskNetTracker\\task_data.csv"
+    data_file_path = "./task_data.csv"
     df = load_data(data_file_path)
 
     # Task input form
@@ -42,12 +42,12 @@ def main():
     with col1:
         task = st.text_input("Task")
         task_description = st.text_input("Task Description")
-        task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
+        preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
         importance = st.slider("Importance", min_value=1, max_value=10, value=5)
 
     with col2:
         task_type = st.selectbox("Task Type", ["Work", "Health", "Personal", "Other"])
-        preferred_shift = st.selectbox("Preferred Shift", ["Morning", "Afternoon", "Evening"])
+        task_duration = st.number_input("Task Duration (hours)", min_value=0.1, step=0.1)
         weather_conditions = st.text_input("Weather Conditions")
         interest = st.slider("Interest", min_value=1, max_value=10, value=5)
 
@@ -82,11 +82,6 @@ def main():
 
         df = pd.concat([df, pd.DataFrame(new_row, index=[0])], ignore_index=True, sort=False)
         save_data(df, data_file_path)
-        repo = Repo("TaskNetTracker")
-        repo.git.add("--all")
-        repo.git.commit("-m", "Automated data push")
-        repo_url = "https://github.com/madhavmadupu/TaskNetTracker.git"
-        subprocess.run("git push origin main")
         st.success("Task saved successfully!")
 
 
